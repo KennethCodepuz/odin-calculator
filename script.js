@@ -46,7 +46,7 @@ btns.forEach(btn => {
         if(['C', 'CE'].includes(btnValue)) arr.splice(0, arr.length);
 
         if(Number.isInteger(parseNum)) {
-
+            num += 
             console.log('A number');
             arr.push(parseNum);
         }else if(['+', '-', '*', '/', '%'].includes(parseNum)){
