@@ -21,7 +21,7 @@ const displayField = document.getElementById('display');
 let num = ''
 let arr = [];
 let operation = '+';
-
+let numbersAndDecimal = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.'];
 
 btns.forEach(btn => {
     btn.addEventListener('click',() => {
@@ -39,21 +39,22 @@ btns.forEach(btn => {
         }else {
             displayField.innerText += `${btnValue}`;
         }
+
         
-        parseNum = toNumber(btnValue);
-        console.log(parseNum);
 
-        if(['C', 'CE'].includes(btnValue)) arr.splice(0, arr.length);
-
-        if(Number.isInteger(parseNum)) {
-            num += 
-            console.log('A number');
-            arr.push(parseNum);
-        }else if(['+', '-', '*', '/', '%'].includes(parseNum)){
-            console.log('Not a number');
-            operation = parseNum;
+        console.log(typeof btnValue);
+        if(numbersAndDecimal.includes(btnValue)) {
+            num += btnValue;
+            console.log(num);
         }
+        console.log(num);
 
+        if(['+', '-', '*', '/', '%', '='].includes(btnValue)) {
+            parseNum = toNumber(num);
+            console.log(parseNum);
+            isNumber(parseNum);
+            num = '';
+        }
         if(btnValue === '=') {
             let answer = equalButton(operation, arr[0], arr[1]);
             displayField.innerText = answer;
@@ -61,6 +62,15 @@ btns.forEach(btn => {
             operation = '';
             arr.push(answer);
         }
+    
+        if(['C', 'CE'].includes(btnValue)) {
+            arr.splice(0, arr.length); 
+            num = '';
+        }
+
+        
+
+        
 
         console.log(arr, operation);
     })
@@ -84,6 +94,17 @@ function equalButton(operation, num1, num2) {
     };
 
     return calculate[operation](num1, num2);
+}
+
+function isNumber(initialNum) {
+    if(Number(initialNum)) {
+        console.log('A number');
+        arr.push(initialNum);
+    }else if(['+', '-', '*', '/', '%'].includes(initialNum)){
+        console.log('Not a number');
+        operation = initialNum;
+    }
+
 }
 
 
